@@ -1,15 +1,13 @@
-# Kino Site – Final (Netlify Ready)
+# Kino Site – ULTRA FINAL
 
-## Ishga tushirish
-npm install
-cp .env.example .env.local
-npm run dev
+✔ Normalization + fallback
+✔ Netlify ISR safe
+✔ SSR/ISR ready
 
-## Netlify ENV
+## ENV (Netlify)
 KP_API_KEY=...
 KP_API_BASE=https://api.kinopoiskapi.uz
 
-## Render
-- Home: ISR
-- Search/Filter: SSR
-- Movie: SSR
+## Run
+npm install
+npm run build

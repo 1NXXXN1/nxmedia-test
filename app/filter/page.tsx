@@ -1,27 +1,28 @@
+import { kpFetch, normalizeList, normalizeId } from "../lib/kp";
+
 export default async function Filter({ searchParams }: any) {
   const genre = searchParams.genre || "";
   const page = searchParams.page || 1;
 
-  const res = await fetch(
-    `${process.env.KP_API_BASE}/api/v2.2/films?genres=${genre}&page=${page}`,
-    {
-      headers: {
-        "X-API-KEY": process.env.KP_API_KEY!
-      },
-      cache: "no-store"
-    }
+  const data = await kpFetch(
+    `/api/v2.2/films?genres=${genre}&page=${page}`,
+    true
   );
-  const data = await res.json();
+
+  const movies = normalizeList(data);
 
   return (
     <div className="p-6">
       <h1 className="text-xl mb-4">Filterlangan filmlar</h1>
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        {data.items.map((m:any)=>(
-          <a key={m.kinopoiskId} href={`/movie/${m.kinopoiskId}`}>
-            <img src={m.posterUrlPreview} className="rounded"/>
-          </a>
-        ))}
+        {movies.map((m: any) => {
+          const id = normalizeId(m);
+          return (
+            <a key={id} href={`/movie/${id}`}>
+              <img src={m.posterUrlPreview} className="rounded" />
+            </a>
+          );
+        })}
       </div>
     </div>
   );
