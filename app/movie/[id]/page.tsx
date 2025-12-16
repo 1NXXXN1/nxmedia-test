@@ -1,7 +1,12 @@
 export default async function Movie({ params }: any) {
   const res = await fetch(
-    process.env.NEXT_PUBLIC_SITE_URL + "/api/kp?path=/api/v2.2/films/" + params.id,
-    { cache: "no-store" }
+    `${process.env.KP_API_BASE}/api/v2.2/films/${params.id}`,
+    {
+      headers: {
+        "X-API-KEY": process.env.KP_API_KEY!
+      },
+      cache: "no-store"
+    }
   );
   const data = await res.json();
 
